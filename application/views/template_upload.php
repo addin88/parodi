@@ -109,8 +109,7 @@
         </div>
      
        
-        <div class="chat-window-container"></div>
-       
+        
         <div class="st-pusher" id="content">
            
             <div class="st-content">
@@ -122,12 +121,13 @@
          
 	</div>
 	</div>
+	</div>
         <div class="footer">
             <strong>kOcAk</strong>Copyright 2015
         </div>
         <!-- // Footer -->
    
-	</div>
+	
 	</div>
     <!-- /st-container -->
     <!-- Inline Script for colors and config objects; used by various external scripts; -->
