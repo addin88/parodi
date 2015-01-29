@@ -92,7 +92,7 @@ function cek_register()
 			
 		}
 		else {
-			if(empty($this->input->post('txtemail')) or empty($this->input->post('txtpassword')) or empty($this->input->post('txtpassword_ver')) )
+			if($this->input->post('txtemail') == '' or $this->input->post('txtpassword') == '' or $this->input->post('txtpassword_ver') == '' )
 			{
 				$this->session->set_flashdata('pesan','Data Harus Diisi Dengan Lengkap!');
 				$this->session->set_flashdata('class','gagal');
