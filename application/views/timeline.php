@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="panel-footer share-buttons">
                                             <a href="#"><i class="fa fa-map-marker"></i></a>
-                                            <a href="#"><i class="fa fa-photo"></i></a>
+                                            <a href="<?php echo base_url()?>image"><i class="fa fa-photo"></i></a>
                                             <a href="#"><i class="fa fa-video-camera"></i></a>
                                             <button type="submit" class="btn btn-primary btn-xs pull-right display-none" href="#">Post</button>
                                         </div>
