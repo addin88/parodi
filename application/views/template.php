@@ -265,7 +265,7 @@
                             </div>
                             <!-- Collect the nav links, forms, and other content for toggling -->
 
-<?php echo  $this->load->view($page)?>
+<?php echo $this->load->view($page)?>
         <!-- Footer -->
         <div class="footer">
             <strong>kOcAk</strong>Copyright 2015
