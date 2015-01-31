@@ -88,6 +88,31 @@ public function kawan()
 		);	
 		$this->load->view('template',$data);
 	}		
+function following()
+{
+		$id=$this->session->userdata('sid');
+		$Q=$this->db->query("select * from kawan where id=$id");	
+		$data=array(
+		'avatar'=>$Q->row()->foto,
+		'nama'=>$Q->row()->nama,
+		'cover'=>$Q->row()->cover,
+		'page'=>'following',
+		'ft_kawan'=>$this->Mhome->data_kawan(),
+		'fol_kawan'=>$this->Mhome->data_fol_kawan(),
+		'posting'=>$this->Mhome->data_posting(),
+		);	
+		$this->load->view('template',$data);	
+}	
+function insert_following()
+{
+	$data=array(
+	'idx'=>$this->session->userdata('sid'),
+	'idy'=>$this->input->post('kawan'),
+	'tgl'=>date('Y-m-d').' '.gmdate("H:i:s", time()+60*60*7),
+	);
+	$this->db->insert('follow',$data);
+	header("location:following");
+}
 }
 
 /* End of file welcome.php */

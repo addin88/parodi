@@ -64,17 +64,12 @@
                                 </li>
                                 <li><a href="<?php echo base_url();?>Home">About</a>
                                 </li>
-                                <li><a href="<?php echo base_url();?>Home">Friends</a>
+                                <li><a href="<?php echo base_url();?>Home">Mas Brow</a>
                                 </li>
-                                <li class="dropdown-header">Private User Pages</li>
-                                <li><a href="<?php echo base_url();?>Home">Messages</a>
+                                
+                                <li><a href="<?php echo base_url();?>Kawan/following">Following</a>
                                 </li>
-                                <li><a href="<?php echo base_url();?>Home">Profile</a>
-                                </li>
-                                <li><a href="<?php echo base_url();?>Home">Timeline</a>
-                                </li>
-                                <li><a href="<?php echo base_url();?>Home">Friends</a>
-                                </li>
+                               
                             </ul>
                         </li>
                         <li><a href="<?php echo base_url();?>Home">Top Mas Brow</a>
