@@ -72,7 +72,7 @@
                                
                             </ul>
                         </li>
-                        <li><a href="<?php echo base_url();?>Home">Top Mas Brow</a>
+                        <li><a href="<?php echo base_url();?>Kawan/posting">Top Mas Brow</a>
                         </li>
                         <li class="hidden-sm" data-toggle="tooltip" data-placement="bottom" title="A few Color Examples. Download includes CSS Files for all color examples & the tools to Generate any Color combination. This Color-Switcher is for previewing purposes only.">
 

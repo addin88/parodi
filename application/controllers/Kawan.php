@@ -113,6 +113,20 @@ function insert_following()
 	$this->db->insert('follow',$data);
 	header("location:following");
 }
+function posting()
+{
+		$id=$this->session->userdata('sid');
+		$Q=$this->db->query("select * from kawan where id=$id");		
+$data=array(
+		'avatar'=>$Q->row()->foto,
+		'nama'=>$Q->row()->nama,
+		'cover'=>$Q->row()->cover,
+'ft_kawan'=>$this->Mhome->data_kawan(),
+'posting'=>$this->Mhome->data_posting(),
+'page'=>'view_posting',
+);	
+$this->load->view('template',$data);
+}
 }
 
 /* End of file welcome.php */
