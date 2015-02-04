@@ -76,7 +76,7 @@
 
 <p>
             Hubungkan dengan Akun Jejaring Sosial Kamu sekarang.<br>
-            <img src="<?php echo base_url();?>assets/images/icon/facebook.jpg" class="img" width="150" height="100">
+          <img src="<?php echo base_url();?>assets/images/icon/facebook.jpg" class="img" width="150" height="100" id="facebook">
             <img src="<?php echo base_url();?>assets/images/icon/twitter.png" class="img" width="150" height="60">
             <img src="<?php echo base_url();?>assets/images/icon/google.png" class="img" width="150" height="70">
             </div>
@@ -179,5 +179,32 @@
     <script src="<?php echo base_url();?>assets/js/theme-core.min.js"></script>
 </body>
 
-<!-- Mirrored from cdn.mosaicpro.biz/themekit-3.6.2/dist/themes/social-2/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Jan 2015 09:13:14 GMT -->
+ <script type="text/javascript">
+  window.fbAsyncInit = function() {
+	  //Initiallize the facebook using the facebook javascript sdk
+     FB.init({ 
+       appId:'<?php echo $this->config->item('appID'); ?>', // App ID 
+	   cookie:true, // enable cookies to allow the server to access the session
+       status:true, // check login status
+	   xfbml:true, // parse XFBML
+	   oauth : true //enable Oauth 
+     });
+   };
+   //Read the baseurl from the config.php file
+   (function(d){
+           var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/en_US/all.js";
+           ref.parentNode.insertBefore(js, ref);
+         }(document));
+	//Onclick for fb login
+ $('#facebook').click(function(e) {
+    FB.login(function(response) {
+	  if(response.authResponse) {
+		  parent.location ='<?php echo $base_url; ?>index.php/login/cek_fb'; //redirect uri after closing the facebook popup
+	  }
+ },{scope: 'email,read_stream,publish_stream,user_birthday,user_location,user_work_history,user_hometown,user_photos'}); //permissions for facebook
+});
+   </script>
 </html>

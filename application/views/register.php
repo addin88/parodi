@@ -61,7 +61,7 @@
                     <div class="<?php echo $this->session->flashdata('class');?>"><?php echo $this->session->flashdata('pesan');?></div>
                     <div class="panel-body">
                     <form action="<?php echo  $post?>" method="post">
-                      <input class="form-control" type="text" name="txtnama" placeholder="Nama Kawan">
+                      <input class="form-control" type="text" name="txtnama" placeholder="Nama Kawan" value="<?php echo $nama?>">
                         <input class="form-control" type="text" name="txtemail" placeholder="Email">
                         <input class="form-control" type="password" name="txtpassword" placeholder="Password">
                         <input class="form-control" type="password" name="txtpassword_ver" placeholder="Verifikasi Password ">

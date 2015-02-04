@@ -1,14 +1,20 @@
-<?php $this->load->helper('html');?>
+<?php 
+/* -----------------------------------------------------------------------------------------
+   IdiotMinds - http://idiotminds.com
+   -----------------------------------------------------------------------------------------
+*/
+
+ $this->load->helper('html');?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Login with Facebook</title>
 <?php  $base_url=$this->config->item('base_url'); ?>
- <script src="<?php echo base_url(); ?>assets/js/jquery.js" type="text/javascript"></script>
+<script src="<?php echo $base_url;?>assets/js/jquery.js" type="text/javascript"></script>
 </head>
+
 <body>
-<?php echo $this->config->item('appID'); ?>
 <?php 
 $ses_user=$this->session->userdata('User');
 
@@ -16,9 +22,13 @@ if(empty($ses_user))   {
 echo img(array('src'=>$base_url.'assets/facebook.png','id'=>'facebook','style'=>'cursor:pointer;float:left;margin-left:550px;'));
 
  }  else{
-	
- echo '<img src="https://graph.facebook.com/'. $ses_user['id'] .'/picture" width="30" height="30"/><div>'.$ses_user['name'].'</div>';	
+	echo $ses_user['id'];
+	echo $ses_user['name'];
+ echo '<img src="https://graph.facebook.com/'. $ses_user['id'] .'/picture?type=large"/><div>'.$ses_user['name'].'</div>';	
 	echo '<a href="'.$this->session->userdata('logout').'">Logout</a>';
+
+	
+	
 	
 }
 	?>
@@ -48,9 +58,7 @@ echo img(array('src'=>$base_url.'assets/facebook.png','id'=>'facebook','style'=>
  $('#facebook').click(function(e) {
     FB.login(function(response) {
 	  if(response.authResponse) {
-		//  parent.location ='<?php echo $base_url; ?>fbci/fblogin'; //redirect uri after closing the facebook popup
- parent.location ='<?php echo $base_url; ?>fbci/fblogin';
- //alert(response.email);
+		  parent.location ='<?php echo $base_url; ?>index.php/fbci/fblogin'; //redirect uri after closing the facebook popup
 	  }
  },{scope: 'email,read_stream,publish_stream,user_birthday,user_location,user_work_history,user_hometown,user_photos'}); //permissions for facebook
 });

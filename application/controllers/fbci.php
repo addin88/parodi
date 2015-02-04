@@ -1,4 +1,8 @@
 <?php 
+/* -----------------------------------------------------------------------------------------
+   IdiotMinds - http://idiotminds.com
+   -----------------------------------------------------------------------------------------
+*/
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 //include the facebook.php from libraries directory
@@ -13,8 +17,7 @@ class Fbci extends CI_Controller {
     }
 	public function index()
 	{
-	 $this->load->view('main'); //load the main.php file for view
-	 
+	  $this->load->view('main'); //load the main.php file for view
 	}
 	
 	function logout(){
@@ -25,8 +28,8 @@ class Fbci extends CI_Controller {
 	}
 	function fblogin(){
 		$base_url=$this->config->item('base_url'); //Read the baseurl from the config.php file
-		
-    		$facebook = new Facebook(array(
+		//get the Facebook appId and app secret from facebook.php which located in config directory for the creating the object for Facebook class
+    	$facebook = new Facebook(array(
 		'appId'		=>  $this->config->item('appID'), 
 		'secret'	=> $this->config->item('appSecret'),
 		));
@@ -44,14 +47,15 @@ class Fbci extends CI_Controller {
 				   'logout' =>$facebook->getLogoutUrl($params)   //generating the logout url for facebook 
 				);
 		        $this->session->set_userdata($ses_user);
+				header('Location: '.$base_url);
 				
-				echo $user_profile;
 			}catch(FacebookApiException $e){
 				error_log($e);
 				$user = NULL;
 			}		
 		}	
-		$this->load->view('main');
+		$ses_useri = $this->session->userdata('User');
+		$ses_useri['id'];
 	}
 	
 }

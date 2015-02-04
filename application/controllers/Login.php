@@ -36,22 +36,27 @@
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once APPPATH.'libraries/facebook/facebook.php';
 
 class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-	 $this->load->model('Mlogin');;
+	 $this->load->model('Mlogin');
+	  $this->load->library('session');  //Load the Session 
+		$this->config->load('facebook'); //Load the facebook.php file which is located in config directory
 	}
 public function index()
 	{
 		$data=array(
 		'post'=>'Login/cek_user',
+		'auth_fb' => 'login/cek_fb',
 		);
 		$this->load->view('login',$data);
 	}
 function cek_user()	
 {
+
 		$userid=$this->input->post('txtuserid');
 		$password=$this->input->post('txtpassword');	
 		$Q=$this->db->query("select * from kawan where email='$userid' and password='$password'");	
@@ -68,6 +73,52 @@ function cek_user()
 			header('location:../');
 		}	
 }	
+
+function cek_fb()	
+{
+
+		
+    	$facebook = new Facebook(array(
+		'appId'		=>  $this->config->item('appID'), 
+		'secret'	=> $this->config->item('appSecret'),
+		));
+		
+		$user = $facebook->getUser(); // Get the facebook user id 
+		
+		if($user){
+			
+			try{
+			$user_profile = $facebook->api('/me');  //Get the facebook user profile data
+			$fbid = $user_profile['id'];
+			$fbname = $user_profile['name'];	
+		
+		$Q=$this->db->query("select * from kawan where facebook='$fbid'");	
+		if($Q->num_rows() > 0)
+		{
+			$this->session->set_userdata('sid',$Q->row()->id);
+			header('location:../Home');
+			
+		}
+		else {		
+			redirect('login/registerfb/'.$fbid.'/'.$this->encode($fbname));
+		}	
+		
+		}	
+
+			catch(FacebookApiException $e){
+				error_log($e);
+				$user = NULL;
+			}	
+			
+		}
+		
+		
+		
+}		
+		
+		
+
+
 function logout()
 {
 	header('location:../');	
@@ -75,11 +126,34 @@ function logout()
 function register()
 {
 		$data=array(
-		'post'=>'cek_register',
+		'post'=>'cek_register/0',
+		'nama' => '',
+		'fbid' => '',
 		);
 		$this->load->view('register',$data);	
 }
-function cek_register()
+
+function encode($input) {
+return strtr(base64_encode($input), '+/=', '-_~');
+}
+
+function decode($input) {
+return base64_decode(strtr($input, '-_~', '+/='));
+}
+
+function registerfb($fbid,$fbname)
+{
+$nama = $this->decode($fbname);
+
+		$data=array(
+		'post'=>'cek_register/'.$fbid,
+		'nama' => $nama,
+		'fbid' => $fbid,
+		);
+		$this->load->view('register',$data);	
+}
+
+function cek_register($fbid)
 {
 		$userid=$this->input->post('txtemail');
 		$password=$this->input->post('txtpassword');	
@@ -112,6 +186,7 @@ function cek_register()
 				'email'=>$this->input->post('txtemail'),
 				'foto'=>'default.jpg',
 				'cover'=>'default.jpg',
+				'facebook'=>$fbid,
 				'password'=>$this->input->post('txtpassword'),
 				'tglgabung'=>date('Y-m-d').' '.gmdate("H:i:s", time()+60*60*7),
 				);
